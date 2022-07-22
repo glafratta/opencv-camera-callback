@@ -44,9 +44,9 @@ public:
 
 ## QT demo
 
-The demo displays the camera in QT window and also
-shows a therometer of the grey value of the centre
-pixel.
+The demo displays the camera in a QT window and
+also displays the grey value of the centre
+pixel with a thermometer.
 
 
 # Credits
