@@ -27,7 +27,8 @@ void Camera::postFrame(){
 /*!
  * Starts the worker thread recording
  */
-void Camera::Start(int deviceID, int apiID){
+void Camera::start(int deviceID, int apiID){
+	isOn=true;
 	videoCapture.open(deviceID,apiID);
 	cameraThread = std::thread(&Camera::threadLoop, this);
 }
@@ -35,8 +36,7 @@ void Camera::Start(int deviceID, int apiID){
 /*!
  * Frees thread resources and stops recording, must be called prior to program exit.
  */
-void Camera::Stop(){
+void Camera::stop(){
     isOn=false;
     cameraThread.join();
-
 }

@@ -2,11 +2,12 @@
 #define WINDOW_H
 
 #include <qwt/qwt_thermo.h>
-#include <qwt/qwt_plot.h>
-#include <qwt/qwt_plot_curve.h>
 
 #include <QBoxLayout>
 #include <QPushButton>
+#include <QLabel>
+
+#include "camera.h"
 
 // class definition 'Window'
 class Window : public QWidget
@@ -15,31 +16,25 @@ class Window : public QWidget
 	Q_OBJECT
 
 public:
-	Window(); // default constructor - called when a Window is declared without arguments
+	Window();
+	~Window();
+	void updateImage(const cv::Mat &mat);
 
-	void timerEvent( QTimerEvent * );
-
-// internal variables for the window class
-private:
-	static constexpr int plotDataSize = 100;
-	static constexpr double gain = 7.5;
-
-	QPushButton  *button;
 	QwtThermo    *thermo;
-	QwtPlot      *plot;
-	QwtPlotCurve *curve;
-
-	// layout elements from Qt itself http://qt-project.org/doc/qt-4.8/classes.html
-	QVBoxLayout  *vLayout;  // vertical layout
 	QHBoxLayout  *hLayout;  // horizontal layout
+	Camera       *camera;
+	QLabel      *image;
 
-	// data arrays for the plot
-	double xData[plotDataSize];
-	double yData[plotDataSize];
+	struct MyCallback : Camera::SceneCallback {
+		Window* window = nullptr;
+		virtual void nextScene(const cv::Mat &mat) {
+			if (nullptr != window) {
+				window->updateImage(mat);
+			}
+		}
+	};
 
-	long count = 0;
-
-	void reset();
+	MyCallback myCallback;
 };
 
 #endif // WINDOW_H

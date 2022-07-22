@@ -17,25 +17,42 @@
  */
 class Camera {
 public:
+	/**
+	 * Callback which needs to be implemented by the client
+	 **/
 	struct SceneCallback {
-		virtual void nextScene(cv::Mat) = 0;
+		virtual void nextScene(const cv::Mat &mat) = 0;
 	};
-	
+
+	/**
+	 * Default constructor
+	 **/
 	Camera() = default;
-	void Start(int deviceID = 0, int apiID = 0);
-	void Stop();
+
+	/**
+	 * Starts the acquisition from the camera
+	 * and then callback is called at the framerate.
+	 **/
+	void start(int deviceID = 0, int apiID = 0);
+
+	/**
+	 * Stops the data aqusisition
+	 **/
+	void stop();
+
+	/**
+	 * Registers the callback which receives the
+	 * fresh frame.
+	 **/
+	void registerSceneCallback(SceneCallback* sc) {
+		sceneCallback = sc;
+	}
     
 private:
 	void postFrame();
 	void threadLoop();
 	cv::VideoCapture videoCapture;
-	//! Private member thread
 	std::thread cameraThread;
-	//! Private member variable containing camera object status.
-	/*!
-	  false = Camera is off.
-	  true = Camera is on.
-	*/
 	bool isOn = false;
 	SceneCallback* sceneCallback = nullptr;
 };

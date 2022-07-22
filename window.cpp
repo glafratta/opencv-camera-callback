@@ -1,71 +1,39 @@
 #include "window.h"
 
-#include <cmath>  // for sine stuff
-
-
 Window::Window()
 {
+	myCallback.window = this;
+	camera = new Camera();
+	camera->registerSceneCallback(&myCallback);
+	
 	// set up the thermometer
 	thermo = new QwtThermo; 
 	thermo->setFillBrush( QBrush(Qt::red) );
-	thermo->setScale(0, 10);
+	thermo->setScale(0, 255);
 	thermo->show();
 
-
-	// set up the initial plot data
-	for( int index=0; index<plotDataSize; ++index )
-	{
-		xData[index] = index;
-		yData[index] = 0;
-	}
-
-	curve = new QwtPlotCurve;
-	plot = new QwtPlot;
-	// make a plot curve from the data and attach it to the plot
-	curve->setSamples(xData, yData, plotDataSize);
-	curve->attach(plot);
-
-	plot->replot();
-	plot->show();
-
-	button = new QPushButton("Reset");
-	// see https://doc.qt.io/qt-5/signalsandslots-syntaxes.html
-	connect(button,&QPushButton::clicked,this,&Window::reset);
-
-	// set up the layout - button above thermometer
-	vLayout = new QVBoxLayout();
-	vLayout->addWidget(button);
-	vLayout->addWidget(thermo);
+	image = new QLabel;
 
 	// plot to the left of button and thermometer
 	hLayout = new QHBoxLayout();
-	hLayout->addLayout(vLayout);
-	hLayout->addWidget(plot);
+	hLayout->addWidget(thermo);
+	hLayout->addWidget(image);
 
 	setLayout(hLayout);
+	camera->start();
 }
 
-void Window::reset() {
-	// set up the initial plot data
-	for( int index=0; index<plotDataSize; ++index )
-	{
-		xData[index] = index;
-		yData[index] = 0;
-	}
-}
-
-
-void Window::timerEvent( QTimerEvent * )
+Window::~Window()
 {
-	double inVal = gain * sin( M_PI * count/50.0 );
-	++count;
+	camera->stop();
+}
 
-	// add the new input to the plot
-	std::move( yData, yData + plotDataSize - 1, yData+1 );
-	yData[0] = inVal;
-	curve->setSamples(xData, yData, plotDataSize);
-	plot->replot();
-
-	// set the thermometer value
-	thermo->setValue( fabs(inVal) );
+void Window::updateImage(const cv::Mat &mat) {
+	const QImage frame(mat.data, mat.cols, mat.rows, mat.step,
+			   QImage::Format_RGB888);
+	image->setPixmap(QPixmap::fromImage(frame));
+	const int h = frame.height();
+	const int w = frame.width();
+	const QColor c = frame.pixelColor(w/2, h/2);
+	thermo->setValue(c.lightness());
 }
