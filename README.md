@@ -23,7 +23,7 @@ public:
 
 	/**
 	 * Starts the acquisition from the camera
-	 * and then callback is called at the framerate.
+	 * and then the callback is called at the framerate.
 	 **/
 	void start(int deviceID = 0, int apiID = 0);
 
@@ -34,12 +34,11 @@ public:
 
 	/**
 	 * Registers the callback which receives the
-	 * fresh frame.
+	 * frames.
 	 **/
 	void registerSceneCallback(SceneCallback* sc) {
 		sceneCallback = sc;
 	}
-    
 ```
 
 ## QT demo
