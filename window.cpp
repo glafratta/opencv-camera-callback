@@ -3,8 +3,7 @@
 Window::Window()
 {
 	myCallback.window = this;
-	camera = new Camera();
-	camera->registerSceneCallback(&myCallback);
+	camera.registerSceneCallback(&myCallback);
 	
 	// set up the thermometer
 	thermo = new QwtThermo; 
@@ -20,12 +19,12 @@ Window::Window()
 	hLayout->addWidget(image);
 
 	setLayout(hLayout);
-	camera->start();
+	camera.start();
 }
 
 Window::~Window()
 {
-	camera->stop();
+	camera.stop();
 }
 
 void Window::updateImage(const cv::Mat &mat) {

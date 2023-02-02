@@ -22,8 +22,8 @@ public:
 
 	QwtThermo    *thermo;
 	QHBoxLayout  *hLayout;  // horizontal layout
-	Camera       *camera;
-	QLabel      *image;
+	Camera       camera;
+	QLabel       *image;
 
 	struct MyCallback : Camera::SceneCallback {
 		Window* window = nullptr;
