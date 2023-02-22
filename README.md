@@ -43,6 +43,17 @@ public:
 
 ## QT demo
 
+Install the opencv development packages:
+```
+sudo apt install libopencv-dev
+```
+
+and the QT development packages:
+```
+sudo apt-get install qtdeclarative5-dev-tools
+sudo apt-get install libqwt-qt5-dev
+```
+
 The demo displays the camera in a QT window and
 also displays the grey value of the centre
 pixel with a thermometer.
