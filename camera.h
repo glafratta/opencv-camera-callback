@@ -35,6 +35,8 @@ public:
 	 **/
 	void start(int deviceID = 0, int apiID = 0);
 
+	void start(const String & filename = "/dev/media3");
+
 	/**
 	 * Stops the data aqusisition
 	 **/
