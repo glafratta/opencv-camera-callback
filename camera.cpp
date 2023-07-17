@@ -15,7 +15,11 @@ void Camera::threadLoop(){
 void Camera::postFrame(){
     if(nullptr == sceneCallback) return;
     cv::Mat cap;
-    videoCapture.read(cap);
+    bool o=videoCapture.read(cap);
+    //check if read
+    if (!o){
+        printf("cannot read\n");
+    }
     // check if we succeeded
     if (cap.empty()) {
         std::cerr << "ERROR! blank frame grabbed\n";

@@ -36,7 +36,7 @@ public:
 	 **/
 	void start(int deviceID = 0, int apiID = 0);
 
-	void start(const cv::String & filename = "/dev/media3");
+	void start(const cv::String &);
 
 	/**
 	 * Stops the data aqusisition
