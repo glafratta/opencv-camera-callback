@@ -33,11 +33,11 @@ void Camera::start(int deviceID, int apiID){
 	cameraThread = std::thread(&Camera::threadLoop, this);
 }
 
-void Camera::start(const String &filename){
-	isOn=true;
-	videoCapture.open(filename);
-	cameraThread = std::thread(&Camera::threadLoop, this);
-}
+// void Camera::start(const cv::String &filename){
+// 	isOn=true;
+// 	videoCapture.open(filename);
+// 	cameraThread = std::thread(&Camera::threadLoop, this);
+// }
 
 /*!
  * Frees thread resources and stops recording, must be called prior to program exit.

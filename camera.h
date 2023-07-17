@@ -1,5 +1,6 @@
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
+#include <opencv2/core/cvstd.hpp>
 
 #include <iostream>
 #include <stdlib.h>
@@ -35,7 +36,7 @@ public:
 	 **/
 	void start(int deviceID = 0, int apiID = 0);
 
-	void start(const String & filename = "/dev/media3");
+	// void start(const cv::String &);
 
 	/**
 	 * Stops the data aqusisition
