@@ -31,7 +31,16 @@ void Camera::start(int deviceID, int apiID){
 	isOn=true;
 	bool o =videoCapture.open(deviceID,apiID);
     if (!o){
-        printf("cannot open deviceID""with apiID", deviceID, apiID);
+        printf("cannot open deviceID %i with apiID %i", deviceID, apiID);
+    }
+	cameraThread = std::thread(&Camera::threadLoop, this);
+}
+
+void Camera::start(const cv::String &filename){
+	isOn=true;
+	bool o=videoCapture.open(filename);
+    if (!o){
+        printf("cannot open camera at %s", filename);
     }
 	cameraThread = std::thread(&Camera::threadLoop, this);
 }

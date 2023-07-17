@@ -8,7 +8,7 @@ struct CameraCallback:Camera::SceneCallback{
 
 int main(int argc, char** argv){
     int deviceID=0;
-    int apiID=0;
+    int apiID=cv::CAP_V4L;
     if (argc>1){
         deviceID = atoi(argv[1]);
     }
