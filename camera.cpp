@@ -29,7 +29,10 @@ void Camera::postFrame(){
  */
 void Camera::start(int deviceID, int apiID){
 	isOn=true;
-	videoCapture.open(deviceID,apiID);
+	bool o =videoCapture.open(deviceID,apiID);
+    if (!o){
+        printf("cannot open deviceID""with apiID", deviceID, apiID);
+    }
 	cameraThread = std::thread(&Camera::threadLoop, this);
 }
 

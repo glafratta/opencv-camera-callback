@@ -20,8 +20,11 @@ add_executable(webcam-viewer
   camera.cpp
 )
 
+add_executable(cameraOnly cameraOnly.cpp camera.cpp)
+
 target_link_libraries(webcam-viewer Qt5::Widgets)
 target_link_libraries(webcam-viewer qwt-qt5)
 target_link_libraries(webcam-viewer ${OpenCV_LIBS} Threads::Threads)
+target_link_libraries(cameraOnly ${OpenCV_LIBS} Threads::Threads)
 
 install(TARGETS webcam-viewer)
