@@ -1,6 +1,5 @@
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
-#include <opencv2/core/cvstd.hpp>
 
 #include <iostream>
 #include <stdlib.h>
@@ -35,8 +34,6 @@ public:
 	 * and then the callback is called at the framerate.
 	 **/
 	void start(int deviceID = 0, int apiID = 0);
-
-	void start(const cv::String &);
 
 	/**
 	 * Stops the data aqusisition
