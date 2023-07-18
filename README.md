@@ -58,6 +58,14 @@ The demo displays the camera in a QT window and
 also displays the grey value of the centre
 pixel with a thermometer.
 
+## Notes for Bullseye RPi OS
+
+Camera will fail to read camera inputs from a camera installed on a Raspberry Pi with a 64-bit with the Bullseye version of Raspberry Pi OS. The Camera class will still work if the legacy camera settings are enabled:
+```
+sudo raspi-config > Interface Options > Legacy Camera > Yes > Ok
+```
+and reboot as instructed.
+
 
 # Credits
 
