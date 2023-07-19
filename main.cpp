@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 
 	// create the window
 	Window window;
-	window.show();
+	window.showMaximized();
 
 	// call the window.timerEvent function every 40 ms
 	window.startTimer(40);

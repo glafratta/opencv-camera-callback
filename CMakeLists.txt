@@ -14,6 +14,9 @@ find_package(Threads REQUIRED)
 find_package(OpenCV REQUIRED)
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 
+add_library(cvCamera camera.h camera.cpp)
+target_link_libraries(cvCamera ${OpenCV_LIBS})
+
 add_executable(webcam-viewer
   window.cpp
   main.cpp
@@ -22,9 +25,13 @@ add_executable(webcam-viewer
 
 add_executable(cameraOnly cameraOnly.cpp camera.cpp)
 
+add_executable(grabMat grabMat.cpp camera.cpp)
+
 target_link_libraries(webcam-viewer Qt5::Widgets)
 target_link_libraries(webcam-viewer qwt-qt5)
 target_link_libraries(webcam-viewer ${OpenCV_LIBS} Threads::Threads)
 target_link_libraries(cameraOnly ${OpenCV_LIBS} Threads::Threads)
+target_link_libraries(grabMat ${OpenCV_LIBS} Threads::Threads)
 
 install(TARGETS webcam-viewer)
+install(TARGETS cvCamera)
